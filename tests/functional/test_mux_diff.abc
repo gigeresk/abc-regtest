@@ -1,0 +1,4 @@
+read mux.blif
+strash
+miter mux_gold.blif
+sat

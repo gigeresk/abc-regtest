@@ -1,0 +1,2 @@
+xor_redundant                 : i/o =    2/    1  lat =    0  nd =     3  edge =      6  cube =     5  lev = 2
+xor_redundant                 : i/o =    2/    1  lat =    0  and =      3  lev =  2

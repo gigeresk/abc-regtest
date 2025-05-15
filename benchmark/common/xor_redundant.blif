@@ -1,0 +1,13 @@
+#  (A XOR B) AND (A XOR B)
+.model xor_redundant
+.inputs a b
+.outputs out
+.names a b n1
+01 1
+10 1
+.names a b n2
+01 1
+10 1
+.names n1 n2 out
+11 1
+.end

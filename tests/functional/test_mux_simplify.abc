@@ -1,0 +1,6 @@
+read benchmark/mux.blif
+strash
+dc2
+write result.blif
+
+quit

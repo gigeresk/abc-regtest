@@ -1,0 +1,15 @@
+.model mux
+.inputs a b sel
+.outputs out
+
+.names a sel a_and_sel
+10 1
+
+.names b sel b_and_nsel
+01 1
+
+.names a_and_sel b_and_nsel out
+1- 1
+-1 1
+
+.end

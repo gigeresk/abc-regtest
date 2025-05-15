@@ -1,0 +1,3 @@
+read not_a_file.blif
+read not_a_file.v
+read not_a_file.aig
