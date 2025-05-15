@@ -18,6 +18,26 @@ Add new tests in the right directory under `tests/`.  Add a `.abc` file with the
 and a matching `.expect` file in the same directory.  The `expect` file should not be empty.
 Inputs can be added under the `benchmark` directory structure. 
 
+├── tests
+│   ├── basic
+│   │   ├── strash_basic.abc    <--- test
+│   │   └── strash_basic.expect <--- expected
+
+
+
+
+├── tests
+│   ├── basic
+│   ├── bugfix      <--- when a bug is fixed 
+│   ├── cec
+│   ├── errors
+│   ├── functional
+│   ├── logic_opt
+│   ├── perf
+│   ├── sat
+│   ├── sequential
+│   └── techmap
+
 ## TODO
 - Write tests (see below)
 - Immediate goals:
