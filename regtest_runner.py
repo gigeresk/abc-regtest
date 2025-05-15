@@ -36,6 +36,10 @@ def run_test(script_file):
             print(f"{Level.PASS} {script_file}")
     else:
         print(f"{Level.WARN} No .expect file for {script_file}")
+        
+        # TODO temp
+        got = util.remove_ansi_codes(proc.stdout.strip())
+        print(got)
 
 
 def main():

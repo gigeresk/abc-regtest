@@ -32,6 +32,7 @@ Inputs can be added under the `benchmark` directory structure.
 │   ├── cec
 │   ├── errors
 │   ├── functional
+│   ├── multistep   <--- when you expect a design to behave a certain way
 │   ├── logic_opt
 │   ├── perf
 │   ├── sat
@@ -44,7 +45,7 @@ Inputs can be added under the `benchmark` directory structure.
     - read/write blif/aig/verilog tests
     - is there equivalence testing? (abc -c "cec original.blif result.blif")
     - test cec itself
-
+- methods of validating expects outside of abc command parsing.
 
 Longer term:
 - parametrized test generation

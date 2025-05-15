@@ -1,0 +1,5 @@
+read_box my_design.box
+read_lut my_lut.lut
+if -K 4
+print_lut
+write_box optimized.box
