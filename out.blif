@@ -1,0 +1,7 @@
+# Benchmark "test" written by ABC on Sat May 17 17:02:24 2025
+.model test
+.inputs a b
+.outputs f
+.names a b f
+11 0
+.end

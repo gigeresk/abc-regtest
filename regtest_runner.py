@@ -3,13 +3,16 @@ import os
     
 from util import Level
 import util
+
 # TODO check that abc is on path
 # TODO could strip lines that start with #? 
 # TODO convert all tabs and spaces to one space
-# TODO util
-# TODO function that checks every single `abc >help ` command against all the functions in .abc files.
+# TODO flake8
+# TODO command line arg to only run under certain dirs
+# TODO return how many tests were skipped
 
-DEBUG_OUTPUT_STRING = False
+# TODO handle error output (stderr) in expects
+DEBUG_OUTPUT_STRING = True
 
 def run_test(script_file):
 
@@ -22,11 +25,14 @@ def run_test(script_file):
         ["./../abc/abc", "-f", script_file],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
-
+    print(f"{Level.RUN} {script_file}")
+    if proc.stderr:
+        print(f"{Level.FAIL} {proc.stderr}")
+    print(proc.stderr)
     # TODO: remove comments from got and expected
 
     if os.path.exists(expected_file):
-        print(f"{Level.RUN} {script_file}")
+        
         with open(expected_file) as f:
             expected = f.read().strip()
             expected = util.remove_comment_lines(expected)
@@ -53,8 +59,6 @@ def run_test(script_file):
         # TODO temp
         got = util.remove_ansi_codes(proc.stdout.strip())
         print(got)
-
-    
 
 
 def main():

@@ -1,0 +1,11 @@
+# Benchmark "mux" written by ABC on Sat May 17 17:36:37 2025
+.model mux
+.inputs a b sel
+.outputs out
+.names b sel new_n5
+11 1
+.names a sel new_n6
+00 1
+.names new_n5 new_n6 out
+00 1
+.end

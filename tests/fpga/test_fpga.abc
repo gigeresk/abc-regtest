@@ -1,5 +1,9 @@
-read_box my_design.box
-read_lut my_lut.lut
-if -K 4
-print_lut
-write_box optimized.box
+read_blif benchmark/box/test.blif       # Load a Verilog file
+strash                  # Convert to AIG (structural hashing)
+read_lut benchmark/box/luts.lut     # Load LUT delay/area library
+read_box benchmark/box/test_lib_box_read.box    # Load target FPGA architecture
+if -K 4                 # Map to 4-input LUTs
+print_lut               # See the mapped result
+#show
+#print_stats
+#write_blif out.blif     # Save the mapped circuit

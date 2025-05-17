@@ -1,0 +1,53 @@
+.model gt4
+.inputs a3 a2 a1 a0 b3 b2 b1 b0
+.outputs gt
+
+# a3 > b3
+.names a3 b3 gt3
+10 1
+
+# a3 == b3
+.names a3 b3 eq3
+00 1
+11 1
+
+# a2 > b2
+.names a2 b2 gt2
+10 1
+
+# a2 == b2
+.names a2 b2 eq2
+00 1
+11 1
+
+# a1 > b1
+.names a1 b1 gt1
+10 1
+
+# a1 == b1
+.names a1 b1 eq1
+00 1
+11 1
+
+# a0 > b0
+.names a0 b0 gt0
+10 1
+
+# Combine conditions with hierarchy
+.names eq3 gt2 t2
+11 1
+
+.names eq3 eq2 gt1 t3
+111 1
+
+.names eq3 eq2 eq1 gt0 t4
+1111 1
+
+# OR all intermediate "greater-than" terms
+.names gt3 t2 t3 t4 gt
+1--- 1
+-1-- 1
+--1- 1
+---1 1
+
+.end

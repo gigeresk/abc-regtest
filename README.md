@@ -8,6 +8,10 @@ synthesis framework.  The intent is to provide a framework to allow for develope
 Have a build of abc accessible on your PATH.  If you built your own abc:  
 `PATH=$PATH:<path_to_abc>`
 
+sudo apt update
+sudo apt install graphviz
+sudo apt install gv
+
 *TODO: How necessary is this?  Do we depend on any third-party packages?*
 Build your virtual environment and activate it:
 `python3 -m venv .venv`  

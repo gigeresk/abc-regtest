@@ -1,0 +1,8 @@
+.model test
+.inputs a b
+.outputs f
+.names a b n1
+11 1
+.names n1 f
+0 1
+.end

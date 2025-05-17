@@ -1,0 +1,6 @@
+read_blif benchmark/box/gt4.blif
+print_stats
+strash
+print_stats
+if -K 4
+print_stats
