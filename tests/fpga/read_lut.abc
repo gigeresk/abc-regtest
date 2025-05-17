@@ -1,0 +1,2 @@
+read_lut benchmark/box/luts.lut
+print_lut

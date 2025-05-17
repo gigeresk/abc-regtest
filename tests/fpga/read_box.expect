@@ -1,0 +1,6 @@
+# Box library written by ABC on Thu May 15 18:26:09 2025.
+# <Name> <ID> <Type> <I> <O>
+adder 0 1 2 2
+   10    22
+   30    44
+Finished writing box library into file "/tmp/hello.box".

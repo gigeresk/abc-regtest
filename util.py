@@ -23,8 +23,24 @@ def remove_ansi_codes(s):
     ansi_escape = re.compile(r'\x1b\[[0-9;]*m')
     return ansi_escape.sub('', s)
 
+def remove_comment_lines(text):
+    return '\n'.join(
+        line for line in text.splitlines()
+        if not line.strip().startswith('#')
+    )
+
+def normalize_whitespace(text):
+    # Step 1: Replace all sequences of tabs and spaces with a single space
+    text = re.sub(r'[ \t]+', ' ', text)
+    # Step 2: Remove space(s) right before a newline
+    text = re.sub(r' +\n', '\n', text)
+    return text
+
 def print_command_coverage():
-    '''Print how many commands available through `help` are not covered'''
+    '''
+    Print how many commands available through abc's `help` are covered.
+    `help` refers to e.g. `abc -q help`, not `abc -help`
+    '''
     def get_all_abc_commands() -> set:
 
         proc = subprocess.run(

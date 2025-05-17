@@ -1,0 +1,2 @@
+read_box -e benchmark/box/test_lib_box_read_2.box
+print_box

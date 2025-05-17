@@ -9,8 +9,11 @@ import util
 # TODO util
 # TODO function that checks every single `abc >help ` command against all the functions in .abc files.
 
+DEBUG_OUTPUT_STRING = False
 
 def run_test(script_file):
+
+
     expected_file = script_file.replace('.abc', '.expect')
     with open(script_file) as f:
         cmd = f.read()  # TODO
@@ -20,12 +23,18 @@ def run_test(script_file):
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
 
+    # TODO: remove comments from got and expected
+
     if os.path.exists(expected_file):
         print(f"{Level.RUN} {script_file}")
         with open(expected_file) as f:
             expected = f.read().strip()
+            expected = util.remove_comment_lines(expected)
+            expected = util.normalize_whitespace(expected)
 
         got = util.remove_ansi_codes(proc.stdout.strip())
+        got = util.remove_comment_lines(got)
+        got = util.normalize_whitespace(got)
         if expected not in got:
             print(f"{Level.FAIL} {script_file}")
             print(f"Expected:\n'{expected}'")
@@ -34,12 +43,18 @@ def run_test(script_file):
             print(f"{Level.WARN} Empty .expect file for {script_file}")
         else:
             print(f"{Level.PASS} {script_file}")
+
+        if(DEBUG_OUTPUT_STRING):
+            print(repr(got))
+            print(repr(expected))
     else:
         print(f"{Level.WARN} No .expect file for {script_file}")
         
         # TODO temp
         got = util.remove_ansi_codes(proc.stdout.strip())
         print(got)
+
+    
 
 
 def main():
