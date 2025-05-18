@@ -57,11 +57,6 @@ Longer term:
 - memory regression testing
 - some runtime regression testing
 
-### Completed Tests
+### Lessons
 
-- basic/read_empty.abc
-- basic/strash_basic.abc
-
-### Incomplete tests
-
-- the rest
+- The Verilog parser is incomplete. Effort could be made to replace it with slang (even if few people are using this frontend)
