@@ -1,4 +1,4 @@
-# Benchmark "mux" written by ABC on Sat May 17 17:36:37 2025
+# Benchmark "mux" written by ABC on Sat May 17 20:26:57 2025
 .model mux
 .inputs a b sel
 .outputs out

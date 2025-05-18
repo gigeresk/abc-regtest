@@ -12,7 +12,9 @@ import util
 # TODO return how many tests were skipped
 
 # TODO handle error output (stderr) in expects
-DEBUG_OUTPUT_STRING = True
+
+# https://people.eecs.berkeley.edu/~alanmi/abc/abc.htm
+DEBUG_OUTPUT_STRING = False
 
 def run_test(script_file):
 
@@ -25,10 +27,9 @@ def run_test(script_file):
         ["./../abc/abc", "-f", script_file],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
-    print(f"{Level.RUN} {script_file}")
     if proc.stderr:
         print(f"{Level.FAIL} {proc.stderr}")
-    print(proc.stderr)
+
     # TODO: remove comments from got and expected
 
     if os.path.exists(expected_file):
@@ -41,6 +42,7 @@ def run_test(script_file):
         got = util.remove_ansi_codes(proc.stdout.strip())
         got = util.remove_comment_lines(got)
         got = util.normalize_whitespace(got)
+
         if expected not in got:
             print(f"{Level.FAIL} {script_file}")
             print(f"Expected:\n'{expected}'")

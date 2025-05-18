@@ -1,0 +1,4 @@
+alias echo_alias echo
+echo_alias "echo_alias is an alias for echo"
+unalias echo_alis
+quit
