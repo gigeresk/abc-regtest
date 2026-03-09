@@ -13,11 +13,14 @@ class Colors:
     Green='\033[0;32m'
     Yellow='\033[0;33m'
 
+    Gold = '\033[38;5;220m'  # bright yellow/gold
+
 class Level:
     RUN = Colors.Green + "[RUN]" + Colors.Color_Off
     WARN = Colors.Yellow + "[WARN]" + Colors.Color_Off
     PASS = Colors.Green + "[PASS]" + Colors.Color_Off
     FAIL = Colors.Red + "[FAIL]" + Colors.Color_Off
+    REGEN = Colors.Gold + "[REGEN]" + Colors.Color_Off
 
 def remove_ansi_codes(s):
     '''abc returns with colors'''
