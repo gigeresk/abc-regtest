@@ -23,20 +23,20 @@ and a matching `.expect` file in the same directory.  The `expect` file should n
 Inputs can be added under the `benchmark` directory structure. 
 
 
-├── tests
-│   ├── basic
-│   │   ├── strash_basic.abc    <--- test script
-│   │   └── strash_basic.expect <--- expected output
-│   ├── bugfix      <--- when a bug is fixed 
-│   ├── cec
-│   ├── errors
-│   ├── functional
-│   ├── multistep   <--- when you expect a design to behave a certain way
-│   ├── logic_opt
-│   ├── perf
-│   ├── sat
-│   ├── sequential
-│   └── techmap
+├── tests  
+│   ├── basic  
+│   │   ├── strash_basic.abc    <--- test script  
+│   │   └── strash_basic.expect <--- expected output  
+│   ├── bugfix      <--- when a bug is fixed  
+│   ├── cec  
+│   ├── errors  
+│   ├── functional  
+│   ├── multistep   <--- when you expect a design to behave a certain way  
+│   ├── logic_opt  
+│   ├── perf  
+│   ├── sat  
+│   ├── sequential  
+│   └── techmap  
 
 ## TODO
 - Goals:
