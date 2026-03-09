@@ -1,17 +1,17 @@
 # ABC-One Two One Two
 ## 🎤 *Is this thing on?*
 
-This is a regression testing framework for the [ABC: System for Sequential Logic Synthesis and Formal Verification ](https://github.com/berkeley-abc/abc)
-synthesis framework.  The intent is to provide a framework to allow for developers of ABC to more confidently make improvements and add new features.
+This is a regression testing framework for the [ABC: System for Sequential Logic Synthesis and Formal Verification ](https://github.com/berkeley-abc/abc) synthesis framework.  The intent is to provide a framework to allow for developers of ABC to more confidently make improvements and add new features.
 
 ## Setup
-Have a build of abc accessible on your PATH.  If you built your own abc:  
+Have a build of abc accessible on your `$PATH`.  If you built your own abc:  
 `PATH=$PATH:<path_to_abc>`
 
+```
 sudo apt update
 sudo apt install graphviz
 sudo apt install gv
-
+```
 *TODO: How necessary is this?  Do we depend on any third-party packages?*
 Build your virtual environment and activate it:
 `python3 -m venv .venv`  
@@ -22,16 +22,11 @@ Add new tests in the right directory under `tests/`.  Add a `.abc` file with the
 and a matching `.expect` file in the same directory.  The `expect` file should not be empty.
 Inputs can be added under the `benchmark` directory structure. 
 
-├── tests
-│   ├── basic
-│   │   ├── strash_basic.abc    <--- test
-│   │   └── strash_basic.expect <--- expected
-
-
-
 
 ├── tests
 │   ├── basic
+│   │   ├── strash_basic.abc    <--- test script
+│   │   └── strash_basic.expect <--- expected output
 │   ├── bugfix      <--- when a bug is fixed 
 │   ├── cec
 │   ├── errors
@@ -44,18 +39,12 @@ Inputs can be added under the `benchmark` directory structure.
 │   └── techmap
 
 ## TODO
-- Write tests (see below)
-- Immediate goals:
-    - read/write blif/aig/verilog tests
-    - is there equivalence testing? (abc -c "cec original.blif result.blif")
-    - test cec itself
-- methods of validating expects outside of abc command parsing.
-
-Longer term:
-- parametrized test generation
-- add test requested by Thierry
-- memory regression testing
-- some runtime regression testing
+- Goals:
+    - Test the command line interface into abc
+    - Monitor regression of specific calls on given inputs, and *sequences* of calls
+        - Quality of Result (QoR), maintained equivalence
+        - Memory and runtime regression
+        - Framework for abc developers to monitor specific bug fixes
 
 ### Lessons
 

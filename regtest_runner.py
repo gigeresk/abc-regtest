@@ -1,7 +1,6 @@
 import subprocess
 import os
-    
-from util import Level
+
 import util
 
 # TODO check that abc is on path
@@ -10,13 +9,16 @@ import util
 # TODO flake8
 # TODO command line arg to only run under certain dirs
 # TODO return how many tests were skipped
-
+# TODO methods of validating expects outside of abc command parsing.
 # TODO handle error output (stderr) in expects
+# TODO show diff
+# TODO sequential benchmarks
+# could i run all sequential benchmarks x all recipes?
 
 # https://people.eecs.berkeley.edu/~alanmi/abc/abc.htm
 DEBUG_OUTPUT_STRING = False
 
-def run_test(script_file):
+def run_test(script_file, abc_exe):
 
 
     expected_file = script_file.replace('.abc', '.expect')
@@ -24,11 +26,11 @@ def run_test(script_file):
         cmd = f.read()  # TODO
 
     proc = subprocess.run(
-        ["./../abc/abc", "-f", script_file],
+        [abc_exe, "-f", script_file],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
     if proc.stderr:
-        print(f"{Level.FAIL} {proc.stderr}")
+        print(f"{util.Level.FAIL} {proc.stderr}")
 
     # TODO: remove comments from got and expected
 
@@ -43,20 +45,21 @@ def run_test(script_file):
         got = util.remove_comment_lines(got)
         got = util.normalize_whitespace(got)
 
+        print(f"{util.Level.RUN} Running test {script_file}")
         if expected not in got:
-            print(f"{Level.FAIL} {script_file}")
+            print(f"{util.Level.FAIL} {script_file}")
             print(f"Expected:\n'{expected}'")
             print(f"Got:\n'{got}'")
         elif expected == "":
-            print(f"{Level.WARN} Empty .expect file for {script_file}")
+            print(f"{util.Level.WARN} Empty .expect file for {script_file}")
         else:
-            print(f"{Level.PASS} {script_file}")
+            print(f"{util.Level.PASS} {script_file}")
 
         if(DEBUG_OUTPUT_STRING):
             print(repr(got))
             print(repr(expected))
     else:
-        print(f"{Level.WARN} No .expect file for {script_file}")
+        print(f"{util.Level.WARN} No .expect file for {script_file}")
         
         # TODO temp
         got = util.remove_ansi_codes(proc.stdout.strip())
@@ -66,10 +69,14 @@ def run_test(script_file):
 def main():
     util.print_command_coverage()
     
+    abc_exe = util.find_abc_executable()
+    print(f"Using abc executable at: {abc_exe}")
+
     for root, dirs, files in os.walk("tests/"):
+        print("-------------- "+root+" --------------")
         for file in files:
             if file.endswith(".abc"):
-                run_test(os.path.join(root, file))
+                run_test(os.path.join(root, file), abc_exe)
 
 if __name__ == "__main__":
     main()

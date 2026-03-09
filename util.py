@@ -1,16 +1,17 @@
 import os
 import re
 import subprocess
+import shutil
+import shutil
+import shutil
 
 
 class Colors:
-    # Reset
-    Color_Off='\033[0m'       # Text Reset
+    Color_Off='\033[0m'
 
-    # Regular Colors
-    Red='\033[0;31m'          # Red
-    Green='\033[0;32m'        # Green
-    Yellow='\033[0;33m'       # Yellow
+    Red='\033[0;31m'
+    Green='\033[0;32m'
+    Yellow='\033[0;33m'
 
 class Level:
     RUN = Colors.Green + "[RUN]" + Colors.Color_Off
@@ -35,6 +36,31 @@ def normalize_whitespace(text):
     # Step 2: Remove space(s) right before a newline
     text = re.sub(r' +\n', '\n', text)
     return text
+
+
+def find_abc_executable():
+    """Resolve path to the `abc` executable.
+
+    Resolution order:
+    1. `ABC_EXE` environment variable if set and executable
+    2. `abc` found on `PATH` via `shutil.which`
+
+    Raises FileNotFoundError if no executable is found.
+    """
+    env_path = os.environ.get("ABC_EXE")
+    if env_path:
+        env_path = os.path.expanduser(env_path)
+        if os.path.isfile(env_path) and os.access(env_path, os.X_OK):
+            return env_path
+
+    which_path = shutil.which("abc")
+    if which_path:
+        return which_path
+
+    raise FileNotFoundError(
+        "abc executable not found. Set ABC_EXE  or ensure `abc` is on PATH."
+    )
+
 
 def print_command_coverage():
     '''
