@@ -7,7 +7,6 @@ import util
 # TODO convert all tabs and spaces to one space
 # TODO flake8
 # TODO command line arg to only run under certain dirs
-# TODO methods of validating expects outside of abc command parsing.
 # TODO handle error output (stderr) in expects
 # TODO show diff
 # TODO sequential benchmarks
@@ -19,7 +18,7 @@ DEBUG_OUTPUT_STRING = False
 def run_test(
         script_file:str,
         abc_exe:str,
-        regolden:bool=False
+        regen:bool=False
         ):
     expected_file = script_file.replace('.abc', '.expect')
 
@@ -28,7 +27,7 @@ def run_test(
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
 
-    if regolden:
+    if regen:
         with open(expected_file, "w") as f:
             stripped_content = "\n".join(line.strip() for line in proc.stdout.splitlines())
             f.write(stripped_content)
@@ -84,7 +83,7 @@ def run_test(
         print(received)
 
 
-def main(regolden: bool = False):
+def main(regen: bool = False):
     util.print_command_coverage()
     
     abc_exe = util.find_abc_executable()
@@ -94,10 +93,10 @@ def main(regolden: bool = False):
         print("-------------- "+root+" --------------")
         for file in files:
             if file.endswith(".abc"):
-                run_test(os.path.join(root, file), abc_exe, regolden)
+                run_test(os.path.join(root, file), abc_exe, regen)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--regolden', action='store_true', help='Regenerate .expect files instead of testing')
+    parser.add_argument('--regen', action='store_true', help='Regenerate .expect files instead of testing')
     args = parser.parse_args()
-    main(args.regolden)
+    main(args.regen)
