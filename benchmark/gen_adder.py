@@ -31,7 +31,9 @@ def generate_nbit_adder_blif(n: int):
     a_signals = [f"a{i}" for i in range(n)]
     b_signals = [f"b{i}" for i in range(n)]
     sum_signals = [f"sum{i}" for i in range(n)]
-    carry_signals = [f"carry{i}" for i in range(n+1)]  # carry0 is initial carry-in (0)
+    carry_signals = [
+        f"carry{i}" for i in range(n + 1)
+    ]  # carry0 is initial carry-in (0)
 
     lines.append(".inputs " + " ".join(a_signals + b_signals))
     lines.append(".outputs " + " ".join(sum_signals))
@@ -53,6 +55,7 @@ def generate_nbit_adder_blif(n: int):
 
     lines.append(".end")
     return "\n".join(lines)
+
 
 parser = argparse.ArgumentParser(description="Echo a single argument.")
 parser.add_argument("width", help="Width of adder e.g. '64'")

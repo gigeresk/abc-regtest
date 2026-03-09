@@ -5,31 +5,30 @@ import os
 import util
 
 # TODO convert all tabs and spaces to one space
-# TODO flake8
 # TODO command line arg to only run under certain dirs
 # TODO handle error output (stderr) in expects
 # TODO show diff
-# TODO sequential benchmarks
 # could i run all sequential benchmarks x all recipes?
 
 # https://people.eecs.berkeley.edu/~alanmi/abc/abc.htm
 DEBUG_OUTPUT_STRING = False
 
-def run_test(
-        script_file:str,
-        abc_exe:str,
-        regen:bool=False
-        ):
-    expected_file = script_file.replace('.abc', '.expect')
+
+def run_test(script_file: str, abc_exe: str, regen: bool = False):
+    expected_file = script_file.replace(".abc", ".expect")
 
     proc = subprocess.run(
         [abc_exe, "-f", script_file],
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
     )
 
     if regen:
         with open(expected_file, "w") as f:
-            stripped_content = "\n".join(line.strip() for line in proc.stdout.splitlines())
+            stripped_content = "\n".join(
+                line.strip() for line in proc.stdout.splitlines()
+            )
             f.write(stripped_content)
         print(f"{util.Level.REGEN} Regolden {script_file}")
         return
@@ -38,7 +37,6 @@ def run_test(
         print(f"{util.Level.FAIL} {proc.stderr}")
 
     if os.path.exists(expected_file):
-        
         with open(expected_file) as f:
             expected = f.read().strip()
             expected = util.remove_ansi_codes(expected)
@@ -72,12 +70,12 @@ def run_test(
         else:
             print(f"{util.Level.PASS} {script_file}")
 
-        if(DEBUG_OUTPUT_STRING):
+        if DEBUG_OUTPUT_STRING:
             print(repr(received))
             print(repr(expected))
     else:
         print(f"{util.Level.WARN} No .expect file for {script_file}")
-        
+
         # TODO temp
         received = util.remove_ansi_codes(proc.stdout.strip())
         print(received)
@@ -85,18 +83,23 @@ def run_test(
 
 def main(regen: bool = False):
     util.print_command_coverage()
-    
+
     abc_exe = util.find_abc_executable()
     print(f"Using abc executable at: {abc_exe}")
 
     for root, dirs, files in os.walk("tests/"):
-        print("-------------- "+root+" --------------")
+        print("-------------- " + root + " --------------")
         for file in files:
             if file.endswith(".abc"):
                 run_test(os.path.join(root, file), abc_exe, regen)
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--regen', action='store_true', help='Regenerate .expect files instead of testing')
+    parser.add_argument(
+        "--regen",
+        action="store_true",
+        help="Regenerate .expect files instead of testing",
+    )
     args = parser.parse_args()
     main(args.regen)
