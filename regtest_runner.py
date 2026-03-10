@@ -6,6 +6,7 @@ import util
 
 # TODO QoR
 # TODO show diff, vebose mode
+# TODO move dirs around
 # TODO command line arg to only run under certain dirs
 # TODO handle error output (stderr) in expects
 # TODO run all sequential benchmarks x all recipes?
@@ -28,6 +29,7 @@ def run_test(script_file: str, abc_exe: str, regen: bool = False):
             stripped_content = "\n".join(
                 line.strip() for line in proc.stdout.splitlines()
             )
+            stripped_content = util.remove_comment_lines(stripped_content)
             f.write(stripped_content)
         print(f"{util.Level.REGEN} Regolden {script_file}")
         return
