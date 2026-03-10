@@ -5,7 +5,7 @@ import subprocess
 import util
 
 # TODO QoR
-# TODO show diff
+# TODO show diff, vebose mode
 # TODO command line arg to only run under certain dirs
 # TODO handle error output (stderr) in expects
 # TODO run all sequential benchmarks x all recipes?
