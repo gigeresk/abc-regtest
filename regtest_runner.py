@@ -4,16 +4,25 @@ import subprocess
 
 import util
 
-# TODO QoR
 # TODO show diff, vebose mode
 # TODO move dirs around
+# TODO print vs logging?
 # TODO command line arg to only run under certain dirs
 # TODO handle error output (stderr) in expects
+# TODO QoR
 # TODO run all sequential benchmarks x all recipes?
-
+# TODO review tests.
 # https://people.eecs.berkeley.edu/~alanmi/abc/abc.htm
 DEBUG_OUTPUT_STRING = False
 
+def process_abc_output(output: str) -> str:
+    # Remove ANSI color codes
+    output = util.remove_ansi_codes(output)
+    # Remove comment lines (lines starting with //)
+    output = util.remove_comment_lines(output)
+    # Normalize whitespace (convert multiple spaces/tabs to a single space, and trim)
+    output = util.normalize_whitespace(output)
+    return output.strip()
 
 def run_test(script_file: str, abc_exe: str, regen: bool = False):
     expected_file = script_file.replace(".abc", ".expect")
@@ -25,13 +34,11 @@ def run_test(script_file: str, abc_exe: str, regen: bool = False):
     )
 
     if regen:
-        with open(expected_file, "w") as f:
-            stripped_content = "\n".join(
-                line.strip() for line in proc.stdout.splitlines()
-            )
-            stripped_content = util.remove_comment_lines(stripped_content)
-            f.write(stripped_content)
         print(f"{util.Level.REGEN} Regolden {script_file}")
+
+        with open(expected_file, "w") as f:
+            f.write(process_abc_output(proc.stdout))
+
         return
 
     if proc.stderr:
@@ -39,14 +46,9 @@ def run_test(script_file: str, abc_exe: str, regen: bool = False):
 
     if os.path.exists(expected_file):
         with open(expected_file) as f:
-            expected = f.read().strip()
-            expected = util.remove_ansi_codes(expected)
-            expected = util.remove_comment_lines(expected)
-            expected = util.normalize_whitespace(expected)
+            expected = process_abc_output(f.read())
 
-        received = util.remove_ansi_codes(proc.stdout.strip())
-        received = util.remove_comment_lines(received)
-        received = util.normalize_whitespace(received)
+        received = process_abc_output(proc.stdout.strip())
 
         def aggressive_normalize(text):
             # Splits by ANY whitespace (space, tab, newline)
@@ -57,7 +59,6 @@ def run_test(script_file: str, abc_exe: str, regen: bool = False):
             # 3. Rejoin with standard Unix newlines
             return "\n".join(lines)
 
-        # Inside your test logic:
         expected = aggressive_normalize(util.remove_comment_lines(expected))
         received = aggressive_normalize(util.remove_comment_lines(received))
         print(f"{util.Level.RUN} Running test {script_file}")
