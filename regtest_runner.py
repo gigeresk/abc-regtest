@@ -1,14 +1,14 @@
 import argparse
-import subprocess
 import os
+import subprocess
 
 import util
 
-# TODO convert all tabs and spaces to one space
+# TODO QoR
+# TODO show diff
 # TODO command line arg to only run under certain dirs
 # TODO handle error output (stderr) in expects
-# TODO show diff
-# could i run all sequential benchmarks x all recipes?
+# TODO run all sequential benchmarks x all recipes?
 
 # https://people.eecs.berkeley.edu/~alanmi/abc/abc.htm
 DEBUG_OUTPUT_STRING = False
@@ -19,8 +19,7 @@ def run_test(script_file: str, abc_exe: str, regen: bool = False):
 
     proc = subprocess.run(
         [abc_exe, "-f", script_file],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        capture_output=True,
         text=True,
     )
 
@@ -48,7 +47,8 @@ def run_test(script_file: str, abc_exe: str, regen: bool = False):
         received = util.normalize_whitespace(received)
 
         def aggressive_normalize(text):
-            # Splits by ANY whitespace (space, tab, newline) and joins with a single space
+            # Splits by ANY whitespace (space, tab, newline)
+            # and joins with a single space
             text = util.remove_comment_lines(text)
             # 2. Split into lines, strip each line, filter out empty lines
             lines = [line.strip() for line in text.splitlines() if line.strip()]

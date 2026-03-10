@@ -1,9 +1,7 @@
 import os
 import re
+import shutil
 import subprocess
-import shutil
-import shutil
-import shutil
 
 
 class Colors:
@@ -78,8 +76,7 @@ def print_command_coverage():
 
         proc = subprocess.run(
             ["./../abc/abc", "-q", "help"],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+            capture_output=True,
             text=True,
         )
 
@@ -104,7 +101,7 @@ def print_command_coverage():
             for filename in files:
                 if filename.endswith(".abc"):
                     filepath = os.path.join(root, filename)
-                    with open(filepath, "r") as f:
+                    with open(filepath) as f:
                         for line in f:
                             stripped = line.strip()
                             if stripped:
@@ -120,5 +117,6 @@ def print_command_coverage():
 
     if len(uncovered_abc_commands) > 0:
         print(
-            f"{Level.WARN} There are {len(uncovered_abc_commands)}/{len(all_abc_commands)} ABC commands with no coverage.\n"
+            f"{Level.WARN} There are {len(uncovered_abc_commands)}/"
+            f"{len(all_abc_commands)} ABC commands with no coverage.\n"
         )
