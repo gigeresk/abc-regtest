@@ -1,14 +1,18 @@
-# ABC-One Two One Two
+# ABC-1212
 ## 🎤 *Is this thing on?*
 
 This is a regression testing framework for the [ABC: System for Sequential Logic Synthesis and Formal Verification ](https://github.com/berkeley-abc/abc) synthesis framework.  The intent is to provide a framework to allow for developers of ABC to more confidently make improvements and add new features.
 
 ## Setup
-If `abc` is on your `$PATH`:  
-`python3 regtest_runner.py`
-Otherwise, run with:
-`ABC_EXE=<path/to/abc> python3 regtest_runner.py`
 
+if abc is on your $PATH  
+```
+python3 regtest_runner.py  
+```
+otherwise, run with:  
+```
+ABC_EXE=<path/to/abc> python3 regtest_runner.py
+```
 ## Adding new tests
 Add new tests in the right directory under `tests/`.  Add a `.abc` file with the abc commands you wish to test,
 and a matching `.expect` file in the same directory.  The `expect` file should not be empty.
@@ -30,21 +34,17 @@ Inputs can be added under the `benchmark` directory structure.
 │   ├── sequential  
 │   └── techmap  
 
-## TODO
-- Goals:
+## Goals:
     - Test the command line interface into abc
     - Monitor regression of specific calls on given inputs, and *sequences* of calls
         - Quality of Result (QoR), maintained equivalence
         - Memory and runtime regression
         - Framework for abc developers to monitor specific bug fixes
 
-### Lessons
-
-- The Verilog parser is incomplete. Effort could be made to replace it with slang (even if few people are using this frontend)
-
-### For abc-1212 framework maintainers
-
-`python3 -m venv .venv`  
-`source .venv/bin/activate`
-`pip install -e .[dev]`
-`ruff check --fix`
+### Code formatting (for abc-1212 framework maintainers)
+```
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e .[dev]
+ruff check --fix
+```
