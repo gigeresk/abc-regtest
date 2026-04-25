@@ -1,0 +1,46 @@
+name: Regression Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Build ABC"]
+    types: [completed]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get date
+        id: date
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - name: Restore ABC from cache
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: abc/abc
+          key: abc-binary-${{ steps.date.outputs.date }}
+          restore-keys: |
+            abc-binary-
+
+      - name: Build ABC (cache miss fallback)
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          git clone --depth 1 https://github.com/berkeley-abc/abc.git
+          make -j$(nproc) -C abc
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run regression tests
+        env:
+          ABC_EXE: ${{ github.workspace }}/abc/abc
+        run: python3 regtest_runner.py

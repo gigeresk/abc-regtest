@@ -73,9 +73,13 @@ def print_command_coverage():
     """
 
     def get_all_abc_commands() -> set:
+        try:
+            abc_exe = find_abc_executable()
+        except FileNotFoundError:
+            return set()
 
         proc = subprocess.run(
-            ["./../abc/abc", "-q", "help"],
+            [abc_exe, "-q", "help"],
             capture_output=True,
             text=True,
         )

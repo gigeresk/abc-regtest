@@ -4,14 +4,7 @@ import subprocess
 
 import util
 
-# TODO show diff, vebose mode
-# TODO move dirs around
-# TODO print vs logging?
-# TODO command line arg to only run under certain dirs
-# TODO handle error output (stderr) in expects
-# TODO QoR
-# TODO run all sequential benchmarks x all recipes?
-# TODO review tests.
+
 # https://people.eecs.berkeley.edu/~alanmi/abc/abc.htm
 DEBUG_OUTPUT_STRING = False
 
