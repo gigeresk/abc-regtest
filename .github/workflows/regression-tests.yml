@@ -10,30 +10,43 @@ on:
     types: [completed]
 
 jobs:
-  test:
+  check-cache:
     runs-on: ubuntu-latest
-
+    outputs:
+      cache-hit: ${{ steps.cache.outputs.cache-hit }}
+      date: ${{ steps.date.outputs.date }}
     steps:
-      - uses: actions/checkout@v4
-
       - name: Get date
         id: date
         run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
-      - name: Restore ABC from cache
+      - name: Check ABC cache
         id: cache
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: abc/abc
           key: abc-binary-${{ steps.date.outputs.date }}
-          restore-keys: |
-            abc-binary-
+          restore-keys: abc-binary-
+          lookup-only: true
 
-      - name: Build ABC (cache miss fallback)
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: |
-          git clone --depth 1 https://github.com/berkeley-abc/abc.git
-          make -j$(nproc) -C abc
+  build-if-needed:
+    needs: check-cache
+    if: needs.check-cache.outputs.cache-hit != 'true'
+    uses: ./.github/workflows/build-abc-daily.yml
+
+  test:
+    needs: [check-cache, build-if-needed]
+    if: always() && !failure() && !cancelled()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore ABC from cache
+        uses: actions/cache/restore@v4
+        with:
+          path: abc/abc
+          key: abc-binary-${{ needs.check-cache.outputs.date }}
+          restore-keys: abc-binary-
 
       - name: Set up Python
         uses: actions/setup-python@v5
