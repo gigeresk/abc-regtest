@@ -1,7 +1,7 @@
 # ABC-1212
 [![Regression Tests](https://github.com/gigeresk/abc-1212/actions/workflows/regression-tests.yml/badge.svg)](https://github.com/gigeresk/abc-1212/actions/workflows/regression-tests.yml)
 
-## 🎤 *Is this thing on?*
+## Overview
 
 This is a regression testing framework for the [ABC: System for Sequential Logic Synthesis and Formal Verification ](https://github.com/berkeley-abc/abc) synthesis framework.  The intent is to provide a framework to allow for developers of ABC to more confidently make improvements and add new features.
 
