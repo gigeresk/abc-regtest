@@ -1,6 +1,7 @@
 import argparse
 import os
 import subprocess
+import sys
 
 import util
 
@@ -17,7 +18,8 @@ def process_abc_output(output: str) -> str:
     output = util.normalize_whitespace(output)
     return output.strip()
 
-def run_test(script_file: str, abc_exe: str, regen: bool = False):
+def run_test(script_file: str, abc_exe: str, regen: bool = False) -> bool:
+    """Returns True if the test passed, False if it failed."""
     expected_file = script_file.replace(".abc", ".expect")
 
     proc = subprocess.run(
@@ -32,7 +34,7 @@ def run_test(script_file: str, abc_exe: str, regen: bool = False):
         with open(expected_file, "w") as f:
             f.write(process_abc_output(proc.stdout))
 
-        return
+        return True
 
     if proc.stderr:
         print(f"{util.Level.FAIL} {proc.stderr}")
@@ -61,6 +63,7 @@ def run_test(script_file: str, abc_exe: str, regen: bool = False):
             print(f"{util.Level.FAIL} {script_file}")
             print(f"Expected:\n'{expected}'")
             print(f"Got:\n'{received}'")
+            return False
         elif expected == "":
             print(f"{util.Level.WARN} Empty .expect file for {script_file}")
         else:
@@ -69,12 +72,14 @@ def run_test(script_file: str, abc_exe: str, regen: bool = False):
         if DEBUG_OUTPUT_STRING:
             print(repr(received))
             print(repr(expected))
+        return True
     else:
         print(f"{util.Level.WARN} No .expect file for {script_file}")
 
         # TODO temp
         received = util.remove_ansi_codes(proc.stdout.strip())
         print(received)
+        return True
 
 
 def main(regen: bool = False):
@@ -83,11 +88,17 @@ def main(regen: bool = False):
     abc_exe = util.find_abc_executable()
     print(f"Using abc executable at: {abc_exe}")
 
+    all_passed = True
     for root, dirs, files in os.walk("tests/"):
         print("-------------- " + root + " --------------")
         for file in files:
             if file.endswith(".abc"):
-                run_test(os.path.join(root, file), abc_exe, regen)
+                passed = run_test(os.path.join(root, file), abc_exe, regen)
+                if not passed:
+                    all_passed = False
+
+    if not all_passed:
+        sys.exit(1)
 
 
 if __name__ == "__main__":
