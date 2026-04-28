@@ -1,4 +1,4 @@
-read mux.blif
+read benchmark/mux.blif
 strash
-miter mux_gold.blif
+miter benchmark/mux_gold.blif
 sat

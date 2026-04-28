@@ -1,5 +1,4 @@
-read_verilog benchmark/adder_64b.blif
-strash
+read benchmark/adder_64b.blif
 print_stats
 mfs2
 print_stats
