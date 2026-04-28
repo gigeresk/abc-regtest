@@ -38,6 +38,8 @@ jobs:
     needs: [check-cache, build-if-needed]
     if: always() && !failure() && !cancelled()
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -56,4 +58,13 @@ jobs:
       - name: Run regression tests
         env:
           ABC_EXE: ${{ github.workspace }}/abc/abc
-        run: python3 regtest_runner.py
+        run: python3 regtest_runner.py --badge badges/command_coverage.svg
+
+      - name: Commit coverage badge
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add badges/command_coverage.svg
+          git diff --cached --quiet || git commit -m "Update coverage badge [skip ci]"
+          git push

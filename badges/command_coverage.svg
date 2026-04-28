@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="216" height="20" role="img" aria-label="ABC command coverage: 22 / 703">
+  <title>ABC command coverage: 22 / 703</title>
+  <linearGradient id="s" x2="0" y2="100%">
+    <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+    <stop offset="1" stop-opacity=".1"/>
+  </linearGradient>
+  <clipPath id="r">
+    <rect width="216" height="20" rx="3" fill="#fff"/>
+  </clipPath>
+  <g clip-path="url(#r)">
+    <rect width="150" height="20" fill="#555"/>
+    <rect x="150" width="66" height="20" fill="#e05d44"/>
+    <rect width="216" height="20" fill="url(#s)"/>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="110">
+    <text aria-hidden="true" x="750" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="1400" lengthAdjust="spacing">ABC command coverage</text>
+    <text x="750" y="140" transform="scale(.1)" textLength="1400" lengthAdjust="spacing">ABC command coverage</text>
+    <text aria-hidden="true" x="1830" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="560" lengthAdjust="spacing">22 / 703</text>
+    <text x="1830" y="140" transform="scale(.1)" textLength="560" lengthAdjust="spacing">22 / 703</text>
+  </g>
+</svg>

@@ -3,6 +3,7 @@ import os
 import subprocess
 import sys
 
+import command_coverage
 import util
 
 
@@ -82,8 +83,16 @@ def run_test(script_file: str, abc_exe: str, regen: bool = False) -> bool:
         return True
 
 
-def main(regen: bool = False):
-    util.print_command_coverage()
+def main(regen: bool = False, badge_path: str | None = None):
+    command_coverage.print_command_coverage()
+
+    if badge_path is not None:
+        covered, total = command_coverage.get_command_coverage()
+        svg = command_coverage.generate_coverage_badge_svg(covered, total)
+        os.makedirs(os.path.dirname(badge_path) or ".", exist_ok=True)
+        with open(badge_path, "w") as f:
+            f.write(svg)
+        print(f"Coverage badge written to {badge_path}")
 
     abc_exe = util.find_abc_executable()
     print(f"Using abc executable at: {abc_exe}")
@@ -108,5 +117,10 @@ if __name__ == "__main__":
         action="store_true",
         help="Regenerate .expect files instead of testing",
     )
+    parser.add_argument(
+        "--badge",
+        metavar="PATH",
+        help="Write a coverage badge SVG to this path (e.g. badges/command_coverage.svg)",
+    )
     args = parser.parse_args()
-    main(args.regen)
+    main(args.regen, args.badge)

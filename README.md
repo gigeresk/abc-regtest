@@ -1,5 +1,6 @@
 # ABC-1212
 [![Regression Tests](https://github.com/gigeresk/abc-1212/actions/workflows/regression-tests.yml/badge.svg)](https://github.com/gigeresk/abc-1212/actions/workflows/regression-tests.yml)
+[![ABC command coverage](https://raw.githubusercontent.com/gigeresk/abc-1212/main/badges/command_coverage.svg)](https://github.com/gigeresk/abc-1212/actions/workflows/regression-tests.yml)
 
 ## Overview
 

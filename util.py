@@ -1,7 +1,6 @@
 import os
 import re
 import shutil
-import subprocess
 
 
 class Colors:
@@ -66,61 +65,3 @@ def find_abc_executable():
     )
 
 
-def print_command_coverage():
-    """
-    Print how many commands available through abc's `help` are covered.
-    `help` refers to e.g. `abc -q help`, not `abc -help`
-    """
-
-    def get_all_abc_commands() -> set:
-        try:
-            abc_exe = find_abc_executable()
-        except FileNotFoundError:
-            return set()
-
-        proc = subprocess.run(
-            [abc_exe, "-q", "help"],
-            capture_output=True,
-            text=True,
-        )
-
-        all_abc_commands = set()
-        for line in proc.stdout.strip().splitlines():
-            # Extract words that look like commands (e.g., &abc, :cmd, %cmd, |cmd, cmd)
-            if line.startswith("Welcome to ABC"):
-                continue
-            if "commands:" in line:
-                continue
-            parts = line.strip().split()
-            for part in parts:
-                all_abc_commands.add(part)
-
-        return all_abc_commands
-
-    def get_covered_abc_commands() -> set:
-        # TODO also support .abc with ';'
-        covered_abc_commands = set()
-
-        for root, dirs, files in os.walk("tests/"):
-            for filename in files:
-                if filename.endswith(".abc"):
-                    filepath = os.path.join(root, filename)
-                    with open(filepath) as f:
-                        for line in f:
-                            stripped = line.strip()
-                            if stripped:
-                                command = stripped.split()[0]
-                                covered_abc_commands.add(command)
-
-        return covered_abc_commands
-
-    all_abc_commands = get_all_abc_commands()
-    covered_abc_commands = get_covered_abc_commands()
-
-    uncovered_abc_commands = all_abc_commands - covered_abc_commands
-
-    if len(uncovered_abc_commands) > 0:
-        print(
-            f"{Level.WARN} There are {len(uncovered_abc_commands)}/"
-            f"{len(all_abc_commands)} ABC commands with no coverage.\n"
-        )
