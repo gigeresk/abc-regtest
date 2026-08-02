@@ -8,6 +8,15 @@ This is a regression testing framework for the [ABC: System for Sequential Logic
 
 ## Setup
 
+This repo vendors the [EPFL Combinational Benchmark Suite](https://github.com/lsils/benchmarks) as a submodule. Clone with:
+```
+git clone --recurse-submodules <repo-url>
+```
+or, if already cloned:
+```
+git submodule update --init --recursive
+```
+
 If ABC is on your $PATH
 ```
 python3 regtest_runner.py
@@ -32,7 +41,12 @@ python3 regtest_runner.py --regen
 ## Adding new tests
 Add new tests in the right directory under `tests/`.  Add a `.abc` file with the abc commands you wish to test,
 and a matching `.expect` file in the same directory.  The `expect` file should not be empty.
-Inputs can be added under the `benchmark` directory structure.
+
+Circuit inputs live in two places, depending on where they come from:
+- `designs/` — first-party designs authored or generated for this repo (adders, muxes, box/LUT libraries, generator scripts). Add new shared designs here.
+- `third_party/epfl/` — the vendored EPFL Combinational Benchmark Suite submodule. Don't edit it directly; update the submodule pointer instead.
+
+A fixture used by only one test doesn't need to go in `designs/` — keep it colocated with the `.abc`/`.expect` pair under `tests/`.
 
 ```
 ├── tests
@@ -41,6 +55,8 @@ Inputs can be added under the `benchmark` directory structure.
 │   │   └── strash_basic.expect <--- expected output
 │   ├── bugfix      <--- when a bug is fixed
 │   └── multistep   <--- when you expect a design to behave a certain way
+├── designs           <--- first-party shared circuits
+└── third_party/epfl   <--- vendored EPFL benchmark suite (submodule)
 ```
 
 ## Goals

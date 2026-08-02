@@ -1,7 +1,7 @@
-read_blif benchmark/box/test.blif       # Load a Verilog file
+read_blif designs/box/test.blif       # Load a Verilog file
 strash                  # Convert to AIG (structural hashing)
-read_lut benchmark/box/luts.lut     # Load LUT delay/area library
-read_box benchmark/box/test_lib_box_read.box    # Load target FPGA architecture
+read_lut designs/box/luts.lut     # Load LUT delay/area library
+read_box designs/box/test_lib_box_read.box    # Load target FPGA architecture
 if -K 4                 # Map to 4-input LUTs
 print_lut               # See the mapped result
 #show

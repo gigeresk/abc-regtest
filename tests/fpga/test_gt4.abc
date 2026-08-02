@@ -1,4 +1,4 @@
-read_blif benchmark/box/gt4.blif
+read_blif designs/box/gt4.blif
 print_stats
 strash
 print_stats

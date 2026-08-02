@@ -1,4 +1,4 @@
-read benchmark/mux.blif
+read designs/mux.blif
 strash
 dc2
 write result.blif
