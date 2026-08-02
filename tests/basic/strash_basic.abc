@@ -1,4 +1,4 @@
-read benchmark/common/xor_redundant.blif
+read designs/common/xor_redundant.blif
 print_stats
 strash
 print_stats

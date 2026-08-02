@@ -1,4 +1,4 @@
-read benchmark/mux.blif
+read designs/mux.blif
 strash
-miter benchmark/mux_gold.blif
+miter designs/mux_gold.blif
 sat

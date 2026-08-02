@@ -1,4 +1,4 @@
-read_blif benchmark/adder_1024b.blif
+read_blif designs/adder_1024b.blif
 print_stats
 mfs2
 print_stats

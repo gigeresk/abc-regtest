@@ -1,2 +1,2 @@
-read_lut benchmark/box/luts.lut
+read_lut designs/box/luts.lut
 print_lut
