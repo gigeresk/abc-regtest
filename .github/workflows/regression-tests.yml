@@ -22,7 +22,7 @@ jobs:
 
       - name: Check ABC cache
         id: cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: abc/abc
           key: abc-binary-${{ steps.date.outputs.date }}
@@ -41,19 +41,19 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           submodules: true
 
       - name: Restore ABC from cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: abc/abc
           key: abc-binary-${{ needs.check-cache.outputs.date }}
           restore-keys: abc-binary-
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: '3.x'
 
