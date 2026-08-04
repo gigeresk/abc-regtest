@@ -1,0 +1,24 @@
+read_blif designs/adder_64b.blif
+strash
+write_aiger /tmp/abc9_map.aig
+&r /tmp/abc9_map.aig
+&if -K 4
+&ps
+&w /tmp/abc9_mapped.aig
+&st
+&lf
+&ps
+&st
+&kf
+&ps
+&st
+&jf -K 4
+&ps
+&st
+&of -K 4
+&ps
+&st
+&mf -K 4
+&ps
+&put
+ps

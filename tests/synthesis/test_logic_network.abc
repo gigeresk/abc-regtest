@@ -1,0 +1,17 @@
+read_blif designs/common/xor_redundant.blif
+logic
+ps
+sweep
+ps
+muxes
+ps
+bdd
+ps
+reorder
+ps
+nodedup
+ps
+short_names
+ps
+double
+ps

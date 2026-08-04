@@ -1,0 +1,10 @@
+======== ABC command line "source tests/synthesis/test_aig_synthesis.abc"
+adder64 : i/o = 128/ 64 lat = 0 and = 1012 (choice = 128) lev =188
+adder64 : i/o = 128/ 64 lat = 0 and = 505 lev =188
+adder64 : i/o = 128/ 64 lat = 0 and = 505 lev =188
+adder64 : i/o = 128/ 64 lat = 0 and = 505 lev =188
+adder64 : i/o = 128/ 64 lat = 0 and = 505 lev =188
+adder64 : i/o = 128/ 64 lat = 0 and = 505 lev =188
+adder64 : i/o = 128/ 64 lat = 0 and = 505 lev =188
+All = 3933. Minus = 2692. Triv = 633. Node = 505. Satur = 0. Time = 0.00 sec
+adder64 : i/o = 128/ 64 lat = 0 and = 505 lev =188

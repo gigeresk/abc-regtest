@@ -1,2 +1,3 @@
+======== ABC command line "source tests/synthesis/test_mfs.abc"
 adder64 : i/o = 128/ 64 lat = 0 nd = 193 edge = 448 cube = 448 lev = 64
 adder64 : i/o = 128/ 64 lat = 0 nd = 190 edge = 442 cube = 441 lev = 64

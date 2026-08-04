@@ -1,0 +1,12 @@
+read_blif designs/adder_64b.blif
+strash
+&get
+&ps
+&syn2
+&ps
+&put
+ps
+&get
+&w /tmp/abc9_gp.aig
+&r /tmp/abc9_gp.aig
+&ps

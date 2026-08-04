@@ -1,0 +1,5 @@
+======== ABC command line "source tests/abc9_comb/test_abc9_get_put.abc"
+adder64 : i/o = 128/ 64 and = 630 lev = 189 (94.55) mem = 0.01 MB
+adder64 : i/o = 128/ 64 and = 680 lev = 163 (79.12) mem = 0.01 MB
+adder64 : i/o = 128/ 64 lat = 0 and = 680 lev =163
+/tmp/abc9_gp : i/o = 128/ 64 and = 680 lev = 163 (79.12) mem = 0.01 MB

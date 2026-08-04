@@ -1,1 +1,2 @@
+======== ABC command line "source tests/basic/test_alias.abc"
 echo_alias is an alias for echo

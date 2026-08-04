@@ -1,0 +1,3 @@
+read_blif designs/common/xor_redundant.blif
+strash
+cec designs/common/xor_redundant.blif

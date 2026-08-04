@@ -1,0 +1,2 @@
+======== ABC command line "source tests/synthesis/test_logic_network.abc"
+Error: This command is only applicable to strashed networks.

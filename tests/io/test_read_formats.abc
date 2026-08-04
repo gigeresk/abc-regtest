@@ -1,0 +1,16 @@
+read_blif designs/common/xor_redundant.blif
+write_blif /tmp/abc_rw.blif
+write_bench /tmp/abc_rw.bench
+write_eqn /tmp/abc_rw.eqn
+write_bblif /tmp/abc_rw.bblif
+strash
+write_aiger /tmp/abc_rw.aig
+write_baf /tmp/abc_rw.baf
+write_verilog /tmp/abc_rw.v
+read_blif /tmp/abc_rw.blif
+read_aiger /tmp/abc_rw.aig
+read_baf /tmp/abc_rw.baf
+read_bench /tmp/abc_rw.bench
+read_eqn /tmp/abc_rw.eqn
+read_bblif /tmp/abc_rw.bblif
+read_verilog /tmp/abc_rw.v

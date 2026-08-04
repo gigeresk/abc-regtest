@@ -1,0 +1,7 @@
+======== ABC command line "source tests/basic/test_standalone.abc"
+testing standalone commands
+elapse: 0.00 seconds, total: 0.00 seconds
+The number of NPN configurations is 768 = 16 complementations * 24 permutations * 2 output polarities.
+The number of unique functions 96 (out of 768). Frequency = 8. Representative: 0006
+The number of NPN configurations is 16 = 4 complementations * 2 permutations * 2 output polarities.
+The number of unique functions 8 (out of 16). Frequency = 2. Representative: 1

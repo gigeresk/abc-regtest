@@ -83,7 +83,19 @@ def run_test(script_file: str, abc_exe: str, regen: bool = False) -> bool:
         return True
 
 
-def main(regen: bool = False, badge_path: str | None = None):
+def main(
+    regen: bool = False,
+    badge_path: str | None = None,
+    tests: list[str] | None = None,
+):
+    if regen and not tests:
+        print(
+            f"{util.Level.WARN} --regen requires one or more test paths "
+            "(e.g. `regtest_runner.py --regen tests/basic/foo.abc`); "
+            "regenerating every .expect file is not supported. Doing nothing."
+        )
+        return
+
     command_coverage.print_command_coverage()
 
     if badge_path is not None:
@@ -97,12 +109,26 @@ def main(regen: bool = False, badge_path: str | None = None):
     abc_exe = util.find_abc_executable()
     print(f"Using abc executable at: {abc_exe}")
 
+    selected = [os.path.normpath(t) for t in tests] if tests else None
+
+    def is_selected(script_file: str) -> bool:
+        if selected is None:
+            return True
+        script_file = os.path.normpath(script_file)
+        return any(
+            script_file == s or script_file.startswith(s + os.sep)
+            for s in selected
+        )
+
     all_passed = True
     for root, dirs, files in os.walk("tests/"):
         print("-------------- " + root + " --------------")
         for file in files:
             if file.endswith(".abc"):
-                passed = run_test(os.path.join(root, file), abc_exe, regen)
+                script_file = os.path.join(root, file)
+                if not is_selected(script_file):
+                    continue
+                passed = run_test(script_file, abc_exe, regen)
                 if not passed:
                     all_passed = False
 
@@ -122,5 +148,12 @@ if __name__ == "__main__":
         metavar="PATH",
         help="Write a coverage badge SVG to this path (e.g. badges/command_coverage.svg)",
     )
+    parser.add_argument(
+        "tests",
+        nargs="*",
+        metavar="PATH",
+        help="Specific test .abc files or directories to run (default: all tests). "
+        "Required when using --regen.",
+    )
     args = parser.parse_args()
-    main(args.regen, args.badge)
+    main(args.regen, args.badge, args.tests)

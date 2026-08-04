@@ -1,0 +1,7 @@
+read_blif designs/common/xor_redundant.blif
+strash
+print_unate
+print_supp
+print_symm
+print_xcut
+print_mint
