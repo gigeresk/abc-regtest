@@ -1,0 +1,7 @@
+read_blif designs/adder_64b.blif
+mfs
+ps
+mfs3
+ps
+mfse
+ps

@@ -1,0 +1,6 @@
+======== ABC command line "source tests/fraiging/test_fraig.abc"
+xor_redundant : i/o = 2/ 1 lat = 0 and = 3 lev = 2
+Fraiging part 1 (out of 1) PI = 2. PO = 1. And = 3. Lev = 2.
+
+xor_redundant : i/o = 2/ 1 lat = 0 and = 3 lev = 2
+Error: Cannot sweep AIGs (use "fraig").

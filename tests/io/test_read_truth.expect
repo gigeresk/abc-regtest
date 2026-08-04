@@ -1,0 +1,2 @@
+======== ABC command line "source tests/io/test_read_truth.abc"
+ex : i/o = 4/ 1 lat = 0 nd = 1 edge = 4 cube = 2 lev = 1

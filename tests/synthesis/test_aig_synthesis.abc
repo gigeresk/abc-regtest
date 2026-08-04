@@ -1,0 +1,18 @@
+read_blif designs/adder_64b.blif
+strash
+dch
+ps
+drw
+ps
+drf
+ps
+csweep
+ps
+irw
+ps
+iresyn
+ps
+istrash
+ps
+icut
+ps

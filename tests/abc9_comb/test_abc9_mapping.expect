@@ -1,0 +1,14 @@
+======== ABC command line "source tests/abc9_comb/test_abc9_mapping.abc"
+/tmp/abc9_map : i/o = 128/ 64 and = 631 lev = 189 (94.55) mem = 0.01 MB
+Mapping (K=4) : lut = 126 edge = 379 lev = 62 (31.50) mem = 0.01 MB
+/tmp/abc9_map : i/o = 128/ 64 and = 630 lev = 127 (64.03) mem = 0.01 MB
+Mapping (K=6) : lut = 172 edge = 573 lev = 26 (13.73) mem = 0.01 MB
+/tmp/abc9_map : i/o = 128/ 64 and = 722 lev = 150 (74.52) mem = 0.01 MB
+Mapping (K=6) : lut = 172 edge = 572 lev = 26 (13.02) mem = 0.01 MB
+/tmp/abc9_map : i/o = 128/ 64 and = 686 lev = 152 (75.69) mem = 0.01 MB
+Mapping (K=4) : lut = 155 edge = 463 lev = 63 (32.23) mem = 0.01 MB
+/tmp/abc9_map : i/o = 128/ 64 and = 702 lev = 189 (94.55) mem = 0.02 MB
+Mapping (K=4) : lut = 150 edge = 451 lev = 62 (31.31) mem = 0.01 MB
+/tmp/abc9_map : i/o = 128/ 64 and = 702 lev = 188 (93.58) mem = 0.01 MB
+Mapping (K=4) : lut = 150 edge = 451 lev = 62 (31.31) mem = 0.01 MB
+/tmp/abc9_map : i/o = 128/ 64 lat = 0 nd = 150 edge = 451 aig = 727 lev = 62

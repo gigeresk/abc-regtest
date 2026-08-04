@@ -1,0 +1,19 @@
+read_blif designs/common/xor_redundant.blif
+b
+ps
+cleanup
+ps
+expand
+ps
+eliminate
+ps
+fx
+ps
+fxch
+ps
+dsd
+ps
+sop
+ps
+collapse
+ps

@@ -1,0 +1,6 @@
+======== ABC command line "source tests/abc_classic_comb/test_square.abc"
+top : i/o = 64/ 128 lat = 0 nd = 18486 edge = 36969 cube = 18485 lev = 250
+top : i/o = 64/ 128 lat = 0 and = 18309 lev =250
+top : i/o = 64/ 128 lat = 0 and = 18074 lev =250
+top : i/o = 64/ 128 lat = 0 and = 17931 lev =250
+top : i/o = 64/ 128 lat = 0 and = 17068 lev =249

@@ -1,0 +1,11 @@
+echo "testing standalone commands"
+version
+hi
+time
+set abc_test_var hello
+unset abc_test_var
+history
+help
+empty
+print_npn 0110
+print_npn 8

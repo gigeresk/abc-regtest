@@ -1,0 +1,38 @@
+read_blif designs/adder_64b.blif
+strash
+write_aiger /tmp/abc9_cov.aig
+&r /tmp/abc9_cov.aig
+&ps
+&b
+&ps
+&st
+&ps
+&syn2
+&ps
+&st
+&syn3
+&ps
+&st
+&syn4
+&ps
+&st
+&dc2
+&ps
+&st
+&dch
+&ps
+&st
+&scorr
+&ps
+&st
+&fraig
+&ps
+&st
+&sweep
+&ps
+&save
+&load
+&ps
+&cec
+&put
+ps

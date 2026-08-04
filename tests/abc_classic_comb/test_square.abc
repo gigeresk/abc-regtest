@@ -1,0 +1,10 @@
+read_blif third_party/epfl/arithmetic/square.blif
+print_stats
+balance
+print_stats
+rewrite
+print_stats
+refactor
+print_stats
+resub
+print_stats

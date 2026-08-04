@@ -1,0 +1,15 @@
+======== ABC command line "source tests/abc9_comb/test_abc9_synthesis.abc"
+/tmp/abc9_cov : i/o = 128/ 64 and = 630 lev = 189 (94.55) mem = 0.01 MB
+/tmp/abc9_cov : i/o = 128/ 64 and = 630 lev = 189 (94.55) mem = 0.01 MB
+/tmp/abc9_cov : i/o = 128/ 64 and = 630 lev = 189 (94.55) mem = 0.01 MB
+/tmp/abc9_cov : i/o = 128/ 64 and = 680 lev = 163 (79.12) mem = 0.01 MB
+/tmp/abc9_cov : i/o = 128/ 64 and = 630 lev = 189 (94.55) mem = 0.01 MB
+/tmp/abc9_cov : i/o = 128/ 64 and = 632 lev = 127 (64.03) mem = 0.01 MB
+/tmp/abc9_cov : i/o = 128/ 64 and = 505 lev = 127 (64.06) mem = 0.01 MB
+/tmp/abc9_cov : i/o = 128/ 64 and = 821 lev = 127 (64.06) mem = 0.01 MB ch = 126
+cst = 0 cls = 125 lit = 126 unused = 698 proof = 0
+Warning: The network is combinational.
+/tmp/abc9_cov : i/o = 128/ 64 and = 505 lev = 127 (64.06) mem = 0.01 MB
+/tmp/abc9_cov : i/o = 128/ 64 and = 505 lev = 127 (64.06) mem = 0.01 MB
+/tmp/abc9_cov : i/o = 128/ 64 and = 505 lev = 127 (64.06) mem = 0.01 MB
+Error: GIA has no mapping.

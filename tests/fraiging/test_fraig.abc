@@ -1,0 +1,11 @@
+read_blif designs/common/xor_redundant.blif
+strash
+fraig_store
+fraig
+ps
+fraig_restore
+ps
+fraig_clean
+fraig_sweep
+fraig_trust
+ps

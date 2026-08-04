@@ -1,0 +1,4 @@
+read_blif designs/common/xor_redundant.blif
+strash
+isat
+psat

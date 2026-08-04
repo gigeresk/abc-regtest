@@ -1,2 +1,3 @@
+======== ABC command line "source tests/abc_classic_comb/test_mfs.abc"
 addern : i/o = 2048/ 1024 lat = 0 nd = 3073 edge = 7168 cube = 7168 lev = 1024
 addern : i/o = 2048/ 1024 lat = 0 nd = 3070 edge = 7162 cube = 7161 lev = 1024

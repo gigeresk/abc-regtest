@@ -1,3 +1,4 @@
+======== ABC command line "source tests/fpga/test_gt4.abc"
 gt4 : i/o = 8/ 1 lat = 0 nd = 11 edge = 27 cube = 17 lev = 3
 gt4 : i/o = 8/ 1 lat = 0 and = 21 lev = 7
 gt4 : i/o = 8/ 1 lat = 0 nd = 5 edge = 16 aig = 24 lev = 3

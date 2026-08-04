@@ -1,0 +1,17 @@
+read_blif designs/common/xor_redundant.blif
+ps
+psu
+pf
+pfan
+print_io
+print_level
+print_fanio
+print_factor
+print_mffc
+print_sharing
+print_status
+print_exdc
+print_latch
+print_gates
+print_delay
+print_auto

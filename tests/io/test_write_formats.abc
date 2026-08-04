@@ -1,0 +1,19 @@
+read_blif designs/common/xor_redundant.blif
+write_blif /tmp/abc_cov.blif
+write_bench /tmp/abc_cov.bench
+write_eqn /tmp/abc_cov.eqn
+write_bblif /tmp/abc_cov.bblif
+strash
+write_aiger /tmp/abc_cov.aig
+write_baf /tmp/abc_cov.baf
+write_verilog /tmp/abc_cov.v
+write_cnf /tmp/abc_cov.cnf
+write_dot /tmp/abc_cov.dot
+write_json /tmp/abc_cov.json
+write_jsonc /tmp/abc_cov.jsonc
+write_blif_mv /tmp/abc_cov.blif_mv
+write_gml /tmp/abc_cov.gml
+write_edgelist /tmp/abc_cov.el
+write_hmetis /tmp/abc_cov.hm
+write_smv /tmp/abc_cov.smv
+write_status /tmp/abc_cov.status

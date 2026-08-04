@@ -1,0 +1,29 @@
+======== ABC command line "source tests/basic/test_print_logic.abc"
+xor_redundant : i/o = 2/ 1 lat = 0 nd = 3 edge = 6 cube = 5 lev = 2
+Structural support info:
+ 0 out : Cone = 3. Supp = 2. (PIs = 2. FFs = 0.)
+ n1 = (a # b)
+ n2 = (a # b)
+ out = (n1n2)
+The distribution of fanins and fanouts in the network:
+ Number Nodes with fanin Nodes with fanout
+ 1 : 3
+ 2 : 3
+Fanins: Max = 2. Ave = 2.00. Fanouts: Max = 1. Ave = 1.00.
+Primary inputs (2): 0=a 1=b
+Primary outputs (1): 0=out
+Latches (0):
+Level = 2. COs = 1. 100.0 %
+The distribution of fanins and fanouts in the network:
+ Number Nodes with fanin Nodes with fanout
+ 1 : 3
+ 2 : 3
+Fanins: Max = 2. Ave = 2.00. Fanouts: Max = 1. Ave = 1.00.
+ n1 = (a # b)
+ n2 = (a # b)
+ out = (n1n2)
+Node = out : Supp = 2 Cone = 3 ( n1 n2 out )
+Statistics about sharing of logic nodes among the CO pairs.
+(CO1,CO2)=NumShared :
+Status = -1 Frames = -1 Cex is not defined.
+Error: Network has no EXDC.
