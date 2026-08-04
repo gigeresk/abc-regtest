@@ -1,46 +1,6 @@
 ======== ABC command line "source tests/basic/test_standalone.abc"
 testing standalone commands
- 20 : logic
- 19 : read_blif benchmark/adder_1024b.blif
- 18 : balance
- 17 : if -K 4
- 16 : strash
- 15 : resub
- 14 : refactor
- 13 : help
- 12 : read_blif arithmetic/adder.blif
- 11 : resyn2
- 10 : resyn
- 9 : strash
- 8 : balance
- 7 : rewrite
- 6 : read_blif arithmetic/square.v
- 5 : read_blif arithmetic/square.blif
- 4 : if -K 6
- 3 : print_stats
- 2 : source -s abc.rc
- 1 : exit
 elapse: 0.00 seconds, total: 0.00 seconds
- 20 : logic
- 19 : read_blif benchmark/adder_1024b.blif
- 18 : balance
- 17 : if -K 4
- 16 : strash
- 15 : resub
- 14 : refactor
- 13 : help
- 12 : read_blif arithmetic/adder.blif
- 11 : resyn2
- 10 : resyn
- 9 : strash
- 8 : balance
- 7 : rewrite
- 6 : read_blif arithmetic/square.v
- 5 : read_blif arithmetic/square.blif
- 4 : if -K 6
- 3 : print_stats
- 2 : source -s abc.rc
- 1 : exit
 The number of NPN configurations is 768 = 16 complementations * 24 permutations * 2 output polarities.
 The number of unique functions 96 (out of 768). Frequency = 8. Representative: 0006
 The number of NPN configurations is 16 = 4 complementations * 2 permutations * 2 output polarities.
