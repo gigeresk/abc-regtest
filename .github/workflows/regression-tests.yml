@@ -16,7 +16,6 @@ jobs:
       cache-hit: ${{ steps.cache.outputs.cache-hit }}
       abc-sha: ${{ steps.abc_sha.outputs.sha }}
     steps:
-      # Resolved once here; the build and the test restore both use this SHA.
       - name: Resolve upstream ABC commit
         id: abc_sha
         run: |

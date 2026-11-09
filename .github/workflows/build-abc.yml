@@ -1,8 +1,5 @@
 name: Build ABC binary
 
-# Reusable build of upstream ABC, cached under the upstream commit SHA.
-# Called by "Build ABC" (nightly) and by "Regression Tests" on a cache miss.
-
 on:
   workflow_call:
     inputs:
@@ -52,8 +49,6 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: sudo apt-get install -y build-essential libreadline-dev
 
-      # Fetch exactly the resolved commit (not whatever HEAD is by now), so the
-      # binary cached under abc-binary-<sha> really is that commit.
       - name: Check out ABC
         if: steps.cache.outputs.cache-hit != 'true'
         env:

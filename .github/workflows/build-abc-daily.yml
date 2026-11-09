@@ -9,13 +9,6 @@ jobs:
   build:
     uses: ./.github/workflows/build-abc.yml
 
-  # GitHub disables scheduled workflows in public repos after 60 days without
-  # repository activity. Re-enabling this workflow through the REST API on every
-  # scheduled run keeps it alive without commits (the same call that
-  # liskin/gh-workflow-keepalive makes). It lives here rather than in the reusable
-  # build-abc.yml so the PR-triggered build never needs `actions: write`.
-  # It cannot revive the workflow once GitHub has disabled it; that needs a
-  # manual `gh workflow enable build-abc-daily.yml`.
   keepalive:
     if: github.event_name == 'schedule'
     runs-on: ubuntu-latest
