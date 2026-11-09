@@ -1,5 +1,5 @@
 [project]
-name = "abc-1212"
+name = "abc-regtest"
 version = "0.0.0"
 description = "Regression test framework for the abc logic synthesis system"
 requires-python = ">=3.8"
