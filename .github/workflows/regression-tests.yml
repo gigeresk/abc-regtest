@@ -14,25 +14,33 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       cache-hit: ${{ steps.cache.outputs.cache-hit }}
-      date: ${{ steps.date.outputs.date }}
+      abc-sha: ${{ steps.abc_sha.outputs.sha }}
     steps:
-      - name: Get date
-        id: date
-        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      # Resolved once here; the build and the test restore both use this SHA.
+      - name: Resolve upstream ABC commit
+        id: abc_sha
+        run: |
+          ABC_SHA=$(git ls-remote https://github.com/berkeley-abc/abc.git HEAD | cut -f1)
+          if ! printf '%s' "$ABC_SHA" | grep -Eqx '[0-9a-f]{40}'; then
+            echo "::error::Not a valid upstream ABC commit SHA: '$ABC_SHA'"
+            exit 1
+          fi
+          echo "sha=$ABC_SHA" >> "$GITHUB_OUTPUT"
 
       - name: Check ABC cache
         id: cache
         uses: actions/cache/restore@v6
         with:
           path: abc/abc
-          key: abc-binary-${{ steps.date.outputs.date }}
-          restore-keys: abc-binary-
+          key: abc-binary-${{ steps.abc_sha.outputs.sha }}
           lookup-only: true
 
   build-if-needed:
     needs: check-cache
     if: needs.check-cache.outputs.cache-hit != 'true'
-    uses: ./.github/workflows/build-abc-daily.yml
+    uses: ./.github/workflows/build-abc.yml
+    with:
+      abc-sha: ${{ needs.check-cache.outputs.abc-sha }}
 
   test:
     needs: [check-cache, build-if-needed]
@@ -45,12 +53,21 @@ jobs:
         with:
           submodules: true
 
+      - name: Record tested ABC commit
+        env:
+          ABC_SHA: ${{ needs.check-cache.outputs.abc-sha }}
+        run: |
+          {
+            echo "### ABC under test"
+            echo "Upstream commit: [\`$ABC_SHA\`](https://github.com/berkeley-abc/abc/commit/$ABC_SHA)"
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Restore ABC from cache
         uses: actions/cache/restore@v6
         with:
           path: abc/abc
-          key: abc-binary-${{ needs.check-cache.outputs.date }}
-          restore-keys: abc-binary-
+          key: abc-binary-${{ needs.check-cache.outputs.abc-sha }}
+          fail-on-cache-miss: true
 
       - name: Set up Python
         uses: actions/setup-python@v7

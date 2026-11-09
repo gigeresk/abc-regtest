@@ -4,43 +4,29 @@ on:
   schedule:
     - cron: '0 2 * * *'
   workflow_dispatch:
-  workflow_call:
 
 jobs:
   build:
+    uses: ./.github/workflows/build-abc.yml
+
+  # GitHub disables scheduled workflows in public repos after 60 days without
+  # repository activity. Re-enabling this workflow through the REST API on every
+  # scheduled run keeps it alive without commits (the same call that
+  # liskin/gh-workflow-keepalive makes). It lives here rather than in the reusable
+  # build-abc.yml so the PR-triggered build never needs `actions: write`.
+  # It cannot revive the workflow once GitHub has disabled it; that needs a
+  # manual `gh workflow enable build-abc-daily.yml`.
+  keepalive:
+    if: github.event_name == 'schedule'
     runs-on: ubuntu-latest
-
+    permissions:
+      actions: write
     steps:
-      - name: Get date
-        id: date
-        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-
-      - name: Get upstream ABC commit
-        id: abc_sha
-        run: echo "sha=$(git ls-remote https://github.com/berkeley-abc/abc.git HEAD | cut -f1)" >> $GITHUB_OUTPUT
-
-      - name: Restore cache
-        id: cache
-        uses: actions/cache@v6
-        with:
-          path: abc/abc
-          key: abc-binary-${{ steps.abc_sha.outputs.sha }}
-
-      - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: sudo apt-get install -y build-essential libreadline-dev
-
-      - name: Clone ABC
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: git clone --depth 1 https://github.com/berkeley-abc/abc.git
-
-      - name: Build ABC
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: make -j$(nproc) -C abc
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v7
-        with:
-          name: abc-binary-${{ steps.date.outputs.date }}
-          path: abc/abc
-          retention-days: 7
+      - name: Re-enable this workflow
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          workflow="${GITHUB_WORKFLOW_REF%%@*}"
+          workflow="${workflow##*/}"
+          gh api -X PUT "repos/$GITHUB_REPOSITORY/actions/workflows/$workflow/enable"
+          echo "Re-enabled $workflow to reset the 60-day inactivity timer." >> "$GITHUB_STEP_SUMMARY"
