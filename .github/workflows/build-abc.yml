@@ -1,0 +1,80 @@
+name: Build ABC binary
+
+on:
+  workflow_call:
+    inputs:
+      abc-sha:
+        description: Upstream berkeley-abc/abc commit to build (defaults to upstream HEAD)
+        type: string
+        required: false
+        default: ''
+    outputs:
+      abc-sha:
+        description: Upstream berkeley-abc/abc commit that was built
+        value: ${{ jobs.build.outputs.abc-sha }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      abc-sha: ${{ steps.abc_sha.outputs.sha }}
+
+    steps:
+      - name: Get date
+        id: date
+        run: echo "date=$(date +'%Y-%m-%d')" >> "$GITHUB_OUTPUT"
+
+      - name: Resolve upstream ABC commit
+        id: abc_sha
+        env:
+          ABC_SHA: ${{ inputs.abc-sha }}
+        run: |
+          if [ -z "$ABC_SHA" ]; then
+            ABC_SHA=$(git ls-remote https://github.com/berkeley-abc/abc.git HEAD | cut -f1)
+          fi
+          if ! printf '%s' "$ABC_SHA" | grep -Eqx '[0-9a-f]{40}'; then
+            echo "::error::Not a valid upstream ABC commit SHA: '$ABC_SHA'"
+            exit 1
+          fi
+          echo "sha=$ABC_SHA" >> "$GITHUB_OUTPUT"
+
+      - name: Restore cache
+        id: cache
+        uses: actions/cache@v6
+        with:
+          path: abc/abc
+          key: abc-binary-${{ steps.abc_sha.outputs.sha }}
+
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: sudo apt-get install -y build-essential libreadline-dev
+
+      - name: Check out ABC
+        if: steps.cache.outputs.cache-hit != 'true'
+        env:
+          ABC_SHA: ${{ steps.abc_sha.outputs.sha }}
+        run: |
+          git init -q abc
+          git -C abc fetch --depth 1 https://github.com/berkeley-abc/abc.git "$ABC_SHA"
+          git -C abc checkout -q --detach FETCH_HEAD
+
+      - name: Build ABC
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: make -j"$(nproc)" -C abc
+
+      - name: Record ABC commit
+        env:
+          ABC_SHA: ${{ steps.abc_sha.outputs.sha }}
+          CACHE_HIT: ${{ steps.cache.outputs.cache-hit == 'true' }}
+        run: |
+          {
+            echo "### ABC build"
+            echo "Upstream commit: [\`$ABC_SHA\`](https://github.com/berkeley-abc/abc/commit/$ABC_SHA) (cache hit: $CACHE_HIT)"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: abc-binary-${{ steps.date.outputs.date }}
+          path: abc/abc
+          retention-days: 7
