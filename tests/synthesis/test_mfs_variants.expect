@@ -1,3 +1,5 @@
 ======== ABC command line "source tests/synthesis/test_mfs_variants.abc"
 adder64 : i/o = 128/ 64 lat = 0 nd = 192 edge = 446 aig = 634 lev = 64
-Error: This command can only be applied to a mapped logic network.
+Warning: The network was strashed and balanced before mapping.
+The current library is not available.
+Error: Mapping has failed.

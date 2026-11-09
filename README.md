@@ -1,6 +1,6 @@
-# ABC-1212
-[![Regression Tests](https://github.com/gigeresk/abc-1212/actions/workflows/regression-tests.yml/badge.svg)](https://github.com/gigeresk/abc-1212/actions/workflows/regression-tests.yml)
-[![ABC command coverage](https://raw.githubusercontent.com/gigeresk/abc-1212/main/badges/command_coverage.svg)](https://github.com/gigeresk/abc-1212/actions/workflows/regression-tests.yml)
+# abc-regtest
+[![Regression Tests](https://github.com/gigeresk/abc-regtest/actions/workflows/regression-tests.yml/badge.svg)](https://github.com/gigeresk/abc-regtest/actions/workflows/regression-tests.yml)
+[![ABC command coverage](https://raw.githubusercontent.com/gigeresk/abc-regtest/main/badges/command_coverage.svg)](https://github.com/gigeresk/abc-regtest/actions/workflows/regression-tests.yml)
 
 ## Overview
 
@@ -66,7 +66,7 @@ A fixture used by only one test doesn't need to go in `designs/` — keep it col
   - Memory and runtime regression
   - Framework for ABC developers to monitor specific bug fixes
 
-## Code formatting (for abc-1212 framework maintainers)
+## Code formatting (for abc-regtest framework maintainers)
 ```
 python3 -m venv .venv
 source .venv/bin/activate
